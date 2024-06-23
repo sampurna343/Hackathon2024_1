@@ -1,0 +1,42 @@
+Data Preprocessing steps:
+---------------------------------------------------------------------------------------------------------------
+1. Check for null values.
+	-> remove the row or impute value in case of NULL occurences
+
+2. Co-related feature check
+	-> when two features are related to each other
+	-> ex: height provided in CM in one column and FEET in another column
+	-> df.corr() gives correlation in form of numbers
+	-> remove one of the features
+
+3. Data Molding
+	-> ecncoding text/image to number
+	-> using a map, use dataframe to transform the data
+
+4. Data Spliting
+	-> split the data into train set and test set using test_train_split
+	-> use random=42
+
+5. Data Impute:
+	-> replace the null value with other values ex. mean value
+	-> from sklern.Impute import SimpleImputer
+	-> do a fit_transform()
+
+6. Feature Scaling or Data Standarization
+	-> standarise the data into a specific range to see each column as same priority
+	-> if some column (ex. salary) has higher range of values, ML algos will think those feature as strong.
+	-> from sklearn import preprocessing
+	-> preprocessing.scale(column_name)
+
+7. Label Encoding
+	-> text to number conversion
+	-> if only two texts are present, make them 0 and 1
+	-> fit_transform using a library label texts as number
+
+8. One Hot Coding
+	-> text to number conversion	
+	-> for example: a column is having 5 types of text values
+	   it creates 5 columns and assign 0/1 to each row.
+           if values are male/female/trans, then there will be three columns
+	   as gender_male, gender_female, gender_trans and put gender_male as 1
+	   for males and keep other columns 0.
