@@ -6,11 +6,11 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score
 
 # Importing the dataset
-training_set = pd.read_csv('./Datasets/Symptoms to disease data/training.csv')
+training_set = pd.read_csv('./Datasets/SymptomsToDiseaseData/training.csv')
 train_x = training_set.iloc[:, :-1].values
 train_y = training_set.iloc[:, -1].values
 
-testing_set = pd.read_csv('./Datasets/Symptoms to disease data/testing.csv')
+testing_set = pd.read_csv('./Datasets/SymptomsToDiseaseData/testing.csv')
 test_x = testing_set.iloc[:, :-1].values
 test_y = testing_set.iloc[:, -1].values
 
