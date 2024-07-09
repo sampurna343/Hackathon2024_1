@@ -1,3 +1,10 @@
+Very Important Links:
+--------------------------------------------------------------------------------------------------------------
+Image Processing - https://medium.com/@maahip1304/the-complete-guide-to-image-preprocessing-techniques-in-python-dca30804550c
+
+
+
+
 Data Preprocessing steps:
 ---------------------------------------------------------------------------------------------------------------
 1. Check for null values.
