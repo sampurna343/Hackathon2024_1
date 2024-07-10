@@ -4,18 +4,17 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 
-result = np.array([])
+result = np.array([0]*16, ndmin=2)
 for dirpath, dirnames, files in os.walk('C:\\Users\\SMAJUMDAR\\X-Ray Images\\hello'):
     print(f'Found directory: {dirpath}')
     for file in files:
         print(file)
         image = io.imread(dirpath+"\\"+file)
         img_pil = Image.fromarray(image)
-        img_arr = np.array(img_pil.resize((64,64)))
+        img_arr = np.array(img_pil.resize((4,4)))
         img_arr = img_arr.flatten()
-        print(img_arr)
         print(len(img_arr))
-        result = np.vstack([result, img_arr])
+        result = np.append(result, [img_arr], axis=0)
         print(len(result))
 print(result)
 df = pd.DataFrame(result)
