@@ -1,0 +1,4 @@
+#Ignore files from commit and push
+
+*.pyc
+
