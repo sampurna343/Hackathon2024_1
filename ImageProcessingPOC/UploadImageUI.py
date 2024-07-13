@@ -10,6 +10,7 @@ with st.sidebar:
     if file is not None:
         image = Image.open(file)
         img_array = np.array(image)
-        image.show(file)
+        #image.show(file)
+        st.image(image)
 
 
