@@ -12,6 +12,9 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.5, rando
 
 # Train the model
 from sklearn.tree import DecisionTreeClassifier
+# from sklearn.multioutput import MultiOutputClassifier
+# will use a MultiOutputClassifier(decision_tree_classifier)
+# to make decision tree to be used for multiple output
 classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 12)
 classifier.fit(x_train, y_train)
 
