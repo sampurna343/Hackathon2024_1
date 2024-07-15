@@ -1,6 +1,7 @@
 from PIL import Image, ImageFilter
 import numpy as np
 import pandas as pd
+import os
 
 
 def normalizeImage(imagePath):
@@ -33,7 +34,7 @@ def normalizeImage(imagePath):
 
     #Convert to NP array and normalize the values
     normalized_data = np.array(list(pixels))//255
-    normalized_data = np.append(normalized_data,"Cardiomegaly")
+    #normalized_data = np.append(normalized_data,"Cardiomegaly")
     #print(normalized_data)
     return normalized_data
 
@@ -51,15 +52,37 @@ def normalizeImage(imagePath):
     # #Show the Image
     # img.show()
 
+train_data_path = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_image_disease_map.csv"
+train_dataset = pd.read_csv(train_data_path, header=0)
 
-normalized_data_list = np.array([])
-for i in range(0,2):
-    imagePath = ".//ImageProcessingPOC//00000001_00"+str(i)+".png"
-    normalized_data_list = np.append(normalized_data_list, normalizeImage(imagePath))
+train_file_name_list=train_dataset[0]
+train_target_disease_column_list=train_dataset[-1]
+
+#train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_images"
+train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\sampoo_tests"
+
+normalized_image_data_list = np.array([])
+for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
+    for file_name in file_name_list:
+        normalized_image_data_list=np.append(normalized_image_data_list,normalizeImage(dirpath+"//"+file_name))
+        file_index=train_file_name_list.index(file_name)
+        normalized_image_data_list=np.append(normalized_image_data_list,train_target_disease_column_list[file_index])
 
 #Reshaping the single array into a 2d array
-normalized_data_list = normalized_data_list.reshape(-1,65)
+normalized_data_list = normalized_image_data_list.reshape(-1,65)
 
 #Save the normalized data as csv file
 df = pd.DataFrame(normalized_data_list)
-df.to_csv('./Datasets/ChestX-RayData/Prepared-Data.csv')
+df.to_csv('C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_data_dummy.csv')
+
+# normalized_data_list = np.array([])
+# for i in range(0,2):
+#     imagePath = ".//ImageProcessingPOC//00000001_00"+str(i)+".png"
+#     normalized_data_list = np.append(normalized_data_list, normalizeImage(imagePath))
+
+# #Reshaping the single array into a 2d array
+# normalized_data_list = normalized_data_list.reshape(-1,65)
+
+# #Save the normalized data as csv file
+# df = pd.DataFrame(normalized_data_list)
+# df.to_csv('./Datasets/ChestX-RayData/Prepared-Data.csv')
