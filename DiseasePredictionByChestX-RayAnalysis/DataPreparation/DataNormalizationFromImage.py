@@ -1,4 +1,5 @@
 from PIL import Image, ImageFilter
+import numpy as np
 
 def normalizeImage(imagePath):
     #Opening the Image
