@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
+from PIL import Image
 from DataNormalizationFromImage import normalizeImage
 
 
@@ -19,8 +20,9 @@ normalized_image_data_list = np.array([[0 for i in range(0, 4097)]])
 for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
     for file_name in file_name_list:
         image_count = image_count+1
+        image=Image.open(file_name)
         normalized_image = np.array([])
-        normalized_image = np.append(normalized_image,normalizeImage(dirpath+"//"+file_name))
+        normalized_image = np.append(normalized_image,normalizeImage(image))
         # normalized_image_data_list=np.append(normalized_image_data_list,normalizeImage(dirpath+"//"+file_name))
         file_index=train_file_name_map[file_name]
         normalized_image=np.append(normalized_image, train_target_disease_column_list[file_index])

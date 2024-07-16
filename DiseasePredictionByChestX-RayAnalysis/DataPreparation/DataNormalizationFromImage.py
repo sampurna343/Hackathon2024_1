@@ -1,9 +1,9 @@
-from PIL import Image, ImageFilter
+from PIL import ImageFilter
 import numpy as np
 
-def normalizeImage(imagePath):
+def normalizeImage(img):
     #Opening the Image
-    img = Image.open(imagePath)
+    #img = Image.open(imagePath)
     #img.show()
     #Converting from png to RGB
     #img = img.convert('RGB')
