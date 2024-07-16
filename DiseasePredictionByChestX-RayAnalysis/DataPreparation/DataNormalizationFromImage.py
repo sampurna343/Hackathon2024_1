@@ -16,7 +16,7 @@ def normalizeImage(img):
     #print(img.getbands())
 
     #Resizing the Image into lower pixels
-    img = img.resize((64,64))
+    img = img.resize((32,32))
     #img.show()
 
 

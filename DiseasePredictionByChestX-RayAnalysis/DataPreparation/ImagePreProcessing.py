@@ -15,12 +15,13 @@ train_target_disease_column_list=list(train_dataset["Finding Labels"])
 train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_images"
 
 image_count = 0
-image_count_threshold = 3
-normalized_image_data_list = np.array([[0 for i in range(0, 4097)]])
+image_count_threshold = 100
+data_length = 1025
+normalized_image_data_list = np.array([[0 for i in range(0, data_length)]])
 for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
     for file_name in file_name_list:
         image_count = image_count+1
-        image=Image.open(file_name)
+        image=Image.open(dirpath+"\\"+file_name)
         normalized_image = np.array([])
         normalized_image = np.append(normalized_image,normalizeImage(image))
         # normalized_image_data_list=np.append(normalized_image_data_list,normalizeImage(dirpath+"//"+file_name))
@@ -35,7 +36,7 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
                 df.to_csv(normalized_data_csv_path, index=False, mode='w')
             else:
                 df.to_csv(normalized_data_csv_path, index=False, mode='a', header=False)
-            normalized_image_data_list = np.array([[0 for i in range(0, 4097)]])
+            normalized_image_data_list = np.array([[0 for i in range(0, data_length)]])
             print("Done:", image_count)
 
 
