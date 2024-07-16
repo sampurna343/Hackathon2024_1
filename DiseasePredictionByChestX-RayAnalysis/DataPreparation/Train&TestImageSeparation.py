@@ -34,6 +34,9 @@ all_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\all_image
 train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_images"
 test_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\test_images"
 
+os.makedirs(train_image_dir,exist_ok=True)
+os.makedirs(test_image_dir,exist_ok=True)
+
 image_count=0
 print("starting image copying")
 
