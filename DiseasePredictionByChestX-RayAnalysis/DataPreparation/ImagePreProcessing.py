@@ -7,11 +7,11 @@ from DataNormalizationFromImage import normalizeImage
 def one_hot_encoding(df):
     # df represents the dataframe
     # column no. 1024 holds the target diseases appended with pipe ('|')
-    df['targets_split'] = df[1024].str.split('|')
+    df['targets_split'] = df[2025].str.split('|')
 
     # all 15 target diseases 
-    unique_targets = set(['Atelectasis','Consolidation', 'Infiltration', 'Pneumothorax', 'Edema', 'Emphysema', 'Fibrosis', 'Effusion',
-                         'Pneumonia', 'Pleural_Thickening', 'Cardiomegaly', 'Nodule' , 'Mass', 'Hernia', 'No Finding'])
+    unique_targets = ['Atelectasis','Consolidation', 'Infiltration', 'Pneumothorax', 'Edema', 'Emphysema', 'Fibrosis', 'Effusion',
+                         'Pneumonia', 'Pleural_Thickening', 'Cardiomegaly', 'Nodule' , 'Mass', 'Hernia', 'No Finding']
 
     # Create binary columns
     # Doing the one hot encoding for 15 disease labels
@@ -39,8 +39,8 @@ train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_i
 image_count = 0
 # after each image_count_threshold value, csv file wil be appended with data
 image_count_threshold = 100
-# the flatten image data length as 32*32=1024
-data_length = 1024
+# the flatten image data length as 32*32=1024 /45*45=2025
+data_length = 2025
 # while declaring np.array, first row we need to declare to represent size with all zeros
 normalized_image_data_list = np.array([[0 for i in range(0, data_length+1)]])
 for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
@@ -49,6 +49,7 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
 
         # Opening the image from image path
         image=Image.open(dirpath+"\\"+file_name)
+        #print(image)
 
         # declaring an empty numpy array for single image
         normalized_image = np.array([])
@@ -66,7 +67,6 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
         # Adding single image arra into the 2-d np array
         normalized_image_data_list = np.vstack([normalized_image_data_list, normalized_image])
 
-
         # for each threshold value occurring, we'll save the normalised data in csv
         if image_count%image_count_threshold==0:
             # Do one hot coding for the target labels
@@ -75,7 +75,7 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
             df = one_hot_encoding(pd.DataFrame(normalized_image_data_list[1:]))
             
             # normalised data path
-            normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_hot_encoded_data.csv'
+            normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_hot_encoded_data_new_45.csv'
             
             if image_count_threshold == image_count:
                 df.to_csv(normalized_data_csv_path, index=False, mode='w')
@@ -90,8 +90,8 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
 #normalized_data_list = normalized_image_data_list.reshape(-1,16385)
 
 #Save the normalized data as csv file
-df = pd.DataFrame(normalized_image_data_list[1:])
-normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_data.csv'
+df = one_hot_encoding(pd.DataFrame(normalized_image_data_list[1:]))
+normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_hot_encoded_data_new_45.csv'
 df.to_csv(normalized_data_csv_path, index=False, mode='a', header=False)
 
 print("Done...")

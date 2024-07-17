@@ -15,8 +15,15 @@ def normalizeImage(img):
     #get band names ('R','G','B')
     #print(img.getbands())
 
+    left = 120
+    top = 120
+    right = 904
+    buttom = 904
+    #img = img.crop((left, top, right, buttom))
+    #img = img.resize((1024,1024))
+    
     #Resizing the Image into lower pixels
-    img = img.resize((32,32))
+    img = img.resize((45,45))
     #img.show()
 
 

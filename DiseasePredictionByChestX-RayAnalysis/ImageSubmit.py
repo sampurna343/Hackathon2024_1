@@ -13,21 +13,21 @@ def submit(image):
 
 def convert_numerics_inTo_texual_chest_condition(predicted_chest_condition):
     #All 15 disease labels
-    chest_condition_label = ['Nodule',
-                            'No Finding',	
+    chest_condition_label = ['Atelectasis',
+                            'Consolidation',	
                             'Infiltration',	
-                            'Pneumonia',
+                            'Pneumothorax',
                             'Edema',
-                            'Cardiomegaly',	
+                            'Emphysema',	
+                            'Fibrosis',	
+                            'Effusion',
+                            'Pneumonia',
                             'Pleural_Thickening',	
-                            'Emphysema',
-                            'Fibrosis',
-                            'Pneumothorax',	
+                            'Cardiomegaly',
+                            'Nodule',	
                             'Mass',
-                            'Effusion',	
-                            'Hernia',
-                            'Atelectasis',	
-                            'Consolidation'] 
+                            'Hernia',	
+                            'No Finding'] 
     
     predicted_chest_condition_names = []
     for i in range(0, len(predicted_chest_condition)):
@@ -47,7 +47,7 @@ def predict(image_data):
 def load_model():
     # Path where trained model is kept/stored
     trained_model_dir = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\ModelPreparation'
-    trained_model_file = trained_model_dir + "\\trained_model.sav"
+    trained_model_file = trained_model_dir + "\\trained_model_cropped_150.sav"
     # Load the Model using pickle package of python
     trained_model = pickle.load(open(trained_model_file,'rb'))
     return trained_model

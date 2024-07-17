@@ -20,5 +20,8 @@ with st.sidebar:
     if submitButton:
         response = submit(image)
         print(response)
-st.write(response)        
+#st.write(response)  
+st.header("Expected Diasease : ") 
+for i in response:
+    st.markdown("- " + i)      
 
