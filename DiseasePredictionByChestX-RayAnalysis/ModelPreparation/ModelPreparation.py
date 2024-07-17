@@ -2,11 +2,14 @@ import pandas as pd
 import pickle
 from sklearn.metrics import confusion_matrix, accuracy_score
 
-# Import Dataset, split independent and dependent variables
+# Path of Normalised - one hot coding dataset
 dataset_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_hot_encoded_data.csv'
 #dataset_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\testing.csv'
 dataset = pd.read_csv(dataset_path, header=0)
+
+# -17 is because of two extra target_labels, target_split_labels along with 15 disease count
 x = dataset.iloc[:, :-17].values
+# -15 is for 15 disease labels
 y = dataset.iloc[:, -15:].values
 print("data loaded successfully")
 
@@ -17,9 +20,10 @@ print("data loaded successfully")
 # Train the model
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.multioutput import MultiOutputClassifier
-# will use a MultiOutputClassifier(decision_tree_classifier)
-# to make decision tree to be used for multiple output
+
 classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 12)
+
+# to make decision tree to be used for multiple output
 multi_classifier=MultiOutputClassifier(classifier)
 multi_classifier.fit(x, y)
 print("model trained successfully")
