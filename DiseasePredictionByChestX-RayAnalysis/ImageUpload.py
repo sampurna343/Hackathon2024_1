@@ -7,6 +7,7 @@ from ImageSubmit import submit
 st.header("Analyze Chest X Ray Plate")
 
 image=[]
+response=""
 with st.sidebar:
     st.title("Image Submit")
     file=st.file_uploader("Upload an inage to analyze",type=["png","jpg","jpeg"])
@@ -17,5 +18,7 @@ with st.sidebar:
         st.image(image)
     submitButton=st.button(label="Submit", key=None, help=None, on_click=None, args=None, kwargs=None, type="secondary", disabled=False, use_container_width=False)
     if submitButton:
-        submit(image)
+        response = submit(image)
+        print(response)
+st.write(response)        
 

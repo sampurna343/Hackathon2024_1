@@ -4,6 +4,21 @@ import os
 from PIL import Image
 from DataNormalizationFromImage import normalizeImage
 
+def one_hot_encoding(df):
+    #df represents the dataframe
+    #column 1024 holds the target diseases appended with pipe ('|')
+    df['targets_split'] = df[1024].str.split('|')
+
+    # Identify unique targets
+    unique_targets = set(['Atelectasis','Consolidation', 'Infiltration', 'Pneumothorax', 'Edema', 'Emphysema', 'Fibrosis', 'Effusion',
+                         'Pneumonia', 'Pleural_Thickening', 'Cardiomegaly', 'Nodule' , 'Mass', 'Hernia', 'No Finding'])
+
+    # Create binary columns
+    for target in unique_targets:
+        df[target] = df['targets_split'].apply(lambda x: 1 if target in x else 0)
+
+    return df
+
 
 train_data_path = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_image_disease_map.csv"
 train_dataset = pd.read_csv(train_data_path, header=0, usecols=["Image Index","Finding Labels"])
@@ -16,8 +31,8 @@ train_image_dir = "C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1_DATASET\\train_i
 
 image_count = 0
 image_count_threshold = 100
-data_length = 1025
-normalized_image_data_list = np.array([[0 for i in range(0, data_length)]])
+data_length = 1024
+normalized_image_data_list = np.array([[0 for i in range(0, data_length+1)]])
 for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
     for file_name in file_name_list:
         image_count = image_count+1
@@ -30,15 +45,14 @@ for dirpath, dirnames, file_name_list in os.walk(train_image_dir):
         normalized_image_data_list = np.vstack([normalized_image_data_list, normalized_image])
         if image_count%image_count_threshold==0:
             # Save the normalized data as csv file
-            df = pd.DataFrame(normalized_image_data_list[1:])
-            normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_data.csv'
+            df = one_hot_encoding(pd.DataFrame(normalized_image_data_list[1:]))
+            normalized_data_csv_path = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\DataSets\\train_normalised_hot_encoded_data.csv'
             if image_count_threshold == image_count:
                 df.to_csv(normalized_data_csv_path, index=False, mode='w')
             else:
                 df.to_csv(normalized_data_csv_path, index=False, mode='a', header=False)
-            normalized_image_data_list = np.array([[0 for i in range(0, data_length)]])
+            normalized_image_data_list = np.array([[0 for i in range(0, data_length+1)]])
             print("Done:", image_count)
-
 
 #Reshaping the single array into a 2d array
 #normalized_data_list = normalized_image_data_list.reshape(-1,16385)
