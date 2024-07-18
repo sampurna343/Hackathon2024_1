@@ -47,7 +47,7 @@ def predict(image_data):
 def load_model():
     # Path where trained model is kept/stored
     trained_model_dir = 'C:\\Users\\SMAJUMDAR\\AI_ML_HACKATHON_2024_1\\Hackathon2024_1\\DiseasePredictionByChestX-RayAnalysis\\ModelPreparation'
-    trained_model_file = trained_model_dir + "\\trained_model_cropped_150.sav"
+    trained_model_file = trained_model_dir + "\\trained_model_random_forest_45.sav"
     # Load the Model using pickle package of python
     trained_model = pickle.load(open(trained_model_file,'rb'))
     return trained_model
